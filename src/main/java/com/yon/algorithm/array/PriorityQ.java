@@ -2,6 +2,7 @@ package com.yon.algorithm.array;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 /**
  * 简易版优先级队列
@@ -18,6 +19,7 @@ public class PriorityQ {
     public PriorityQ(int capacity) {
         heap = new int[capacity];
         idWeight = new HashMap<>(capacity);
+        PriorityQueue<int[]> bigQ = new PriorityQueue<>((o1, o2) -> Integer.compare(o2[1], o1[1]));
         size = 0;
     }
 

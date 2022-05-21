@@ -1,0 +1,34 @@
+package com.yon.algorithm.binarytree;
+
+/**
+ * 二叉树最近公共祖先(Lowest Common Ancestor)
+ */
+public class LCA {
+    public TreeNode lca(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) {
+            return root;
+        }
+        boolean pInLeft = contains(root.left, p);
+        boolean qInRight = contains(root.right, q);
+        if (pInLeft == qInRight) {
+            //在两边
+            return root;
+        } else if (pInLeft) {
+            //都在左边
+            return lca(root.left, p, q);
+        } else {
+            //都在右边
+            return lca(root.right, p, q);
+        }
+    }
+
+    private boolean contains(TreeNode root, TreeNode node) {
+        if (root == node) {
+            return true;
+        }
+        if (root == null) {
+            return false;
+        }
+        return contains(root.left, node) || contains(root.right, node);
+    }
+}

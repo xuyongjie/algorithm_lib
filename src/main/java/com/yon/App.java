@@ -8,9 +8,19 @@ import java.util.List;
  */
 public class App {
     public static void main(String[] args) {
-        XmlParser xmlParser = new XmlParser();
-        XmlParser.XmlNode parsed = xmlParser.parse("<root><sub1>2</sub1><sub2>3</sub2></root>");
-        System.out.println(parsed);
+        List<String> result = new ArrayList<>();
+        dfs(5, 0, "", result);
+        System.out.println(result);
+    }
+
+    public static void dfs(int n, int index, String path, List<String> result) {
+        if (index == n) {
+            result.add(path);
+            return;
+        }
+        for (int i = 0; i < 10; i++) {
+            dfs(n, index + 1, path + i, result);
+        }
     }
 
 

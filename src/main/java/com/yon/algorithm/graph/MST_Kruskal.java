@@ -61,9 +61,8 @@ public class MST_Kruskal {
         UnionFind unionFind = new UnionFind(vCount);
         for (int i = 0; i < allEdges.size(); i++) {
             int[] edge = allEdges.get(i);
-            if (unionFind.find(edge[1]) != unionFind.find(edge[2])) {
-                //联通这两个节点
-                unionFind.union(edge[1], edge[2]);
+            //联通这两个节点
+            if (unionFind.union(edge[1], edge[2])) {
                 //将该边加入selected边集
                 selectedEdges.add(edge);
             }
