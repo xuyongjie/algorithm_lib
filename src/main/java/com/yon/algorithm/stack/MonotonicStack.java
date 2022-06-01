@@ -6,10 +6,10 @@ import java.util.Deque;
 /**
  * 单调栈，可用来找元素最近小于该元素的值
  */
-public class IncreaseStack {
+public class MonotonicStack {
 
     public static void main(String[] args) {
-        int[][] result = new IncreaseStack().findLittle(new int[]{2, 1, 5, 6, 2, 3});
+        int[][] result = new MonotonicStack().findLittle(new int[]{2, 1, 5, 6, 2, 3});
         for (int[] each : result) {
             System.out.println("[" + each[0] + "," + each[1] + "]");
         }

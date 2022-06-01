@@ -23,6 +23,8 @@ public class SegmentTree {
         int l;
         int r;
         int data;
+        //懒标记，需要时向下传递
+        int lazyMark;
 
         @Override
         public String toString() {
@@ -32,15 +34,12 @@ public class SegmentTree {
 
     //线段树节点
     Node[] nodes;
-    //节点懒标记,mark[i]表示对位置i的节点的修改值
-    int[] mark;
     //原始区间数据
     int[] data;
 
     public SegmentTree(int[] data) {
         this.data = data;
         nodes = new Node[data.length * 4];
-        mark = new int[data.length * 4];
         build(0, data.length - 1, 1);
     }
 
@@ -101,7 +100,7 @@ public class SegmentTree {
             cur.data += (cur.r - cur.l + 1) * val;
             if (cur.r > cur.l) {
                 //非叶子节点，懒标记，留着向下传递
-                mark[p - 1] += val;
+                cur.lazyMark += val;
             }
         } else {
             //部分覆盖
@@ -120,12 +119,12 @@ public class SegmentTree {
      * @param length 节点区间长度
      */
     private void pushDown(int p, int length) {
-        mark[(p << 1) - 1] += mark[p - 1];
-        nodes[(p << 1) - 1].data += ((length + 1) >> 1) * mark[p - 1];
-        mark[p << 1] += mark[p - 1];
-        nodes[p << 1].data += ((length - 1) >> 1) * mark[p - 1];
+        nodes[(p << 1) - 1].lazyMark += nodes[p - 1].lazyMark;
+        nodes[(p << 1) - 1].data += ((length + 1) >> 1) * nodes[p - 1].lazyMark;
+        nodes[p << 1].lazyMark += nodes[p - 1].lazyMark;
+        nodes[p << 1].data += ((length - 1) >> 1) * nodes[p - 1].lazyMark;
         //清空当前节点标记
-        mark[p - 1] = 0;
+        nodes[p - 1].lazyMark = 0;
     }
 
     public void print() {
